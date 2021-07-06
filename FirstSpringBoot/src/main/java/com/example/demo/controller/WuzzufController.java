@@ -14,7 +14,7 @@ import static org.apache.spark.sql.functions.desc;
 
 @RestController
 public class WuzzufController {
-    WuzzufService service = new WuzzufService();
+    WuzzufServiceDAO service = new WuzzufServiceDAO();
     @GetMapping("/show_first_records")
     public  String  show_first_records(){
         return service.ShowData();

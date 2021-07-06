@@ -5,6 +5,7 @@ import org.apache.spark.ml.clustering.KMeans;
 import org.apache.spark.ml.clustering.KMeansModel;
 import org.apache.spark.ml.feature.StringIndexer;
 import org.apache.spark.ml.feature.VectorAssembler;
+import org.apache.spark.ml.linalg.Vector;
 import org.apache.spark.ml.param.IntParam;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.types.StructType;
@@ -12,8 +13,6 @@ import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import smile.data.DataFrame;
-import tech.tablesaw.index.StringIndex;
 
 import java.io.IOException;
 import java.util.*;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static org.apache.spark.sql.functions.col;
 
-public class WuzzufService {
+public class WuzzufServiceDAO {
     public DataFrameReader getFrameReader(){
         final SparkSession session = SparkSession.builder().appName("CSV analasis").master("local[*]").getOrCreate();
         return session.read();
@@ -197,8 +196,8 @@ public class WuzzufService {
         kmeans.setFeaturesCol("features");
         KMeansModel model = kmeans.fit(trainData);
         // Evaluate clustering by computing Within Set Sum of Squared Errors.
-        IntParam WSSE = model.maxIter();
-
-        return String.valueOf(WSSE);
+        int iter = model.getMaxIter();
+        return "Number Of Iterations is : " + String.valueOf(iter);
     }
 }
+
