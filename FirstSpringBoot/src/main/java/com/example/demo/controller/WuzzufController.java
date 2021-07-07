@@ -67,8 +67,8 @@ public class WuzzufController {
         return service.skill();
     }
 
-    @GetMapping("/show_new_data")
-    public  String  show_new_data() throws IOException {
+    @GetMapping("/show_YearsExp")
+    public  String  show_YearsExp() throws IOException {
         return service.factYearsExp();
     }
 
